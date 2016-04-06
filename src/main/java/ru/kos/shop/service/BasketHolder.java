@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by brjazgin on 06.04.2016.
  */
 @Component
-@Scope(value = "SESSION", proxyMode= ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session", proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class BasketHolder {
 
     private Basket basket;
