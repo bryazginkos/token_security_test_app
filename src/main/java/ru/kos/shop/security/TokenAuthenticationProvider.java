@@ -31,7 +31,6 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             return auth;
         }
 
-        //todo do not throw exception if bad token. Just only do not grant admin_role
         try {
             TokenInfo tokenInfo = tokenService.getTokenInfo(token);
             if (tokenInfo.isExpired()) {
