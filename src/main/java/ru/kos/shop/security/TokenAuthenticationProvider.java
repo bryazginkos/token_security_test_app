@@ -2,15 +2,14 @@ package ru.kos.shop.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 import ru.kos.shop.domain.User;
 
-import javax.security.auth.login.AccountExpiredException;
+import java.util.Arrays;
 
 /**
  * Created by Константин on 05.04.2016.
@@ -26,27 +25,29 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
-        if (auth.isAuthenticated())
+        String token = auth.getCredentials() != null ? auth.getCredentials().toString() : null;
+
+        if (token == null) {
             return auth;
+        }
 
-        String token = auth.getCredentials().toString();
-
+        //todo do not throw exception if bad token. Just only do not grant admin_role
         try {
             TokenInfo tokenInfo = tokenService.getTokenInfo(token);
             if (tokenInfo.isExpired()) {
-                throw new AccountExpiredException("token is expired");
+                return auth;
             }
             User user = authorizedUsersStorage.get(tokenInfo.getUserId());
             if (user != null) {
-                Authentication filled = new PreAuthenticatedAuthenticationToken(user, token);
+                Authentication filled = new PreAuthenticatedAuthenticationToken(user, token, Arrays.asList(new SimpleGrantedAuthority(Roles.ROLE_ADMIN)));
                 filled.setAuthenticated(true);
                 return filled;
             } else {
-                throw new AuthenticationServiceException("System error");
+                //system error
+                return auth;
             }
         } catch (Exception e) {
-            //todo log error
-            throw new BadCredentialsException("Invalid token " + token);
+            return auth;
         }
     }
 

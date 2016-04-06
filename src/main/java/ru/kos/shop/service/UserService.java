@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kos.shop.domain.User;
 import ru.kos.shop.reporitory.UserRepository;
-import ru.kos.shop.security.Roles;
 import ru.kos.shop.util.PasswordEncrypter;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class UserService {
     private PasswordEncrypter passwordEncrypter;
 
     @Transactional
-    public User registerUser(String userName, String password, List<Roles> rolesList) {
+    public User registerUser(String userName, String password, List<String> rolesList) {
         User user = new User(userName, passwordEncrypter.encrypt(password), rolesList);
         userRepository.save(user);
         return user;

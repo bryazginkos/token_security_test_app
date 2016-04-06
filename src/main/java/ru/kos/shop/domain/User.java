@@ -1,7 +1,5 @@
 package ru.kos.shop.domain;
 
-import ru.kos.shop.security.Roles;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -21,12 +19,12 @@ public class User implements Serializable {
     private String passHash;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Roles> roles;
+    private List<String> roles;
 
     public User() {
     }
 
-    public User(String userName, String passHash, List<Roles> roles) {
+    public User(String userName, String passHash, List<String> roles) {
         this.userName = userName;
         this.passHash = passHash;
         this.roles = roles;
@@ -44,7 +42,7 @@ public class User implements Serializable {
         return passHash;
     }
 
-    public List<Roles> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 }
