@@ -13,7 +13,7 @@ import ru.kos.shop.service.ProductService;
  * Created by brjazgin on 06.04.2016.
  */
 @RestController
-@RequestMapping("/api/version")
+@RequestMapping(UrlList.PREFIX)
 public class AdminController {
 
     @Autowired

@@ -1,7 +1,8 @@
 package ru.kos.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import ru.kos.shop.service.UserService;
  * Created by Константин on 05.04.2016.
  */
 @RestController
+@RequestMapping(UrlList.PREFIX)
 public class AuthController {
 
     @Autowired
@@ -26,17 +28,13 @@ public class AuthController {
     private TokenService tokenService;
 
     @RequestMapping(value = "/token")
-    public String getToken(@RequestParam(value = "user") String userName, @RequestParam(value = "pass") String password) {
+    public ResponseEntity<String> getToken(@RequestParam(value = "user") String userName, @RequestParam(value = "pass") String password) {
         User user = userService.findUser(userName, password);
         if (user != null) {
             usersStorage.put(user.getId(), user);
-            return tokenService.createJWT(user.getId());
+            return new ResponseEntity<>(tokenService.createJWT(user.getId()), HttpStatus.OK);
         } else {
-            throw new BadCredentialsException("User not found");
+            return new ResponseEntity<>((String)null, HttpStatus.UNAUTHORIZED);
         }
     }
-
-
-
-
 }
