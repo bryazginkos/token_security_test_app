@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatcher(UrlList.PREFIX + "/*")
                 .authenticationProvider(tokenAuthenticationProvider)
                 .authorizeRequests()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().csrf().disable();
     }
 }
