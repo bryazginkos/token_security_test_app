@@ -40,11 +40,6 @@ public class UserController {
         return Arrays.asList(product1, product2, product3);
     }
 
-    public Iterable<User> findAll() {
-        return userService.findAll();
-    }
-
-
     @RequestMapping("/register")
     public User registerAdmin(@RequestParam(value = "name") String userName,
                               @RequestParam(value = "pass")String password) {
