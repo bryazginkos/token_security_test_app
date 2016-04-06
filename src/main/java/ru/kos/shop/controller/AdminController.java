@@ -1,10 +1,7 @@
 package ru.kos.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.kos.shop.domain.Product;
 import ru.kos.shop.service.ProductService;
 
@@ -16,18 +13,19 @@ import ru.kos.shop.service.ProductService;
 @RequestMapping(UrlList.PREFIX)
 public class AdminController {
 
+    private static final String PRODUCT_ID_PATH_VARIBALE = "productId";
+
     @Autowired
     private ProductService productService;
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public Product createProduct(@RequestParam(name = "name") String name,
-                                 @RequestParam(name = "price") Double price) {
-        return productService.createProduct(name, price);
+    public Product createProduct(@RequestBody Product product) {
+        return productService.createProduct(product);
     }
 
-    public Product updateProduct(@RequestParam(name = "id") Integer id,
-                                 @RequestParam(name = "name") String name,
-                                 @RequestParam(name = "price") Double price) {
-        return productService.updateProduct(id, name, price);
+    @RequestMapping(value = UrlList.PRODUCTS + "/{" + PRODUCT_ID_PATH_VARIBALE + "}", method = RequestMethod.PUT)
+    public Product updateProduct(@PathVariable(value= PRODUCT_ID_PATH_VARIBALE) Integer id,
+                                 @RequestBody Product product) {
+        return productService.updateProduct(id, product);
     }
 }

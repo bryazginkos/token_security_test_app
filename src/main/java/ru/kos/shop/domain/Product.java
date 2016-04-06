@@ -28,6 +28,10 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

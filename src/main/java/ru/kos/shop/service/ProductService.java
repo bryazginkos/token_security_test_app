@@ -24,14 +24,13 @@ public class ProductService {
     }
 
     @Transactional
-    public Product createProduct(String name, Double price) {
-        Product product = new Product(name, price);
+    public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 
     @Transactional
-    public Product updateProduct(Integer id, String name, Double price) {
-        Product product = new Product(id, name, price);
+    public Product updateProduct(Integer id, Product product) {
+        product.setId(id);
         return productRepository.save(product);
     }
 
