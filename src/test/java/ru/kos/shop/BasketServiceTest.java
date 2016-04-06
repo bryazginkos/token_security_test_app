@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
         classes = { TestConfig.class} )
-@TransactionConfiguration(transactionManager="transactionManager", defaultRollback=true)
+@TransactionConfiguration(defaultRollback=true)
 @Transactional
 public class BasketServiceTest {
 
@@ -43,8 +43,6 @@ public class BasketServiceTest {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private BasketHolder basketHolder;
 
     @Test
     public void testSaveBasket() {
@@ -53,9 +51,13 @@ public class BasketServiceTest {
         LocalDateTime afterBasketDateTime = LocalDateTime.of(2012, Month.FEBRUARY, 6, 0, 0);
 
         List<Product> products = addProductsToDatabase();
-        products.forEach(basketHolder::addProduct);
 
-        basketService.saveBasket(CUSTOMER_PHONE, convert(basketDateTime));
+        Basket basket = new Basket();
+        basket.setCustomerPhone(CUSTOMER_PHONE);
+        basket.setOrderDate(convert(basketDateTime));
+        basket.setProductList(products);
+
+        basketService.saveBasket(basket);
 
         List<Basket> orderBaskets = basketService.getOrderBaskets(convert(beforeBasketDateTime), convert(afterBasketDateTime));
         assertTrue(orderBaskets.size() == 1);
@@ -67,8 +69,8 @@ public class BasketServiceTest {
     }
 
     private List<Product> addProductsToDatabase() {
-        Product product1 = productService.createProduct(PRODUCT_1, PRICE_1);
-        Product product2 = productService.createProduct(PRODUCT_2, PRICE_2);
+        Product product1 = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
+        Product product2 = productService.createProduct(new Product(PRODUCT_2, PRICE_2));
         return Arrays.asList(product1, product2);
     }
 

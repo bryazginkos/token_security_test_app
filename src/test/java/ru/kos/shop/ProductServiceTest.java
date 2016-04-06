@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
         classes = { TestConfig.class} )
-@TransactionConfiguration(transactionManager="transactionManager", defaultRollback=true)
+@TransactionConfiguration(defaultRollback=true)
 @Transactional
 public class ProductServiceTest {
 
@@ -40,7 +40,7 @@ public class ProductServiceTest {
 
     @Test
     public void testAddProduct() {
-        Product product = productService.createProduct(PRODUCT_1, PRICE_1);
+        Product product = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
         Iterable<Product> all = productService.findAll();
         assertTrue(Iterables.contains(all, product));
         assertTrue(Iterables.size(all) == 1);
@@ -48,8 +48,8 @@ public class ProductServiceTest {
 
     @Test
     public void testAddTwo0Products() {
-        Product product1 = productService.createProduct(PRODUCT_1, PRICE_1);
-        Product product2 = productService.createProduct(PRODUCT_2, PRICE_2);
+        Product product1 = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
+        Product product2 = productService.createProduct(new Product(PRODUCT_2, PRICE_2));
         Iterable<Product> all = productService.findAll();
         assertTrue(Iterables.contains(all, product1));
         assertTrue(Iterables.contains(all, product2));
@@ -58,8 +58,8 @@ public class ProductServiceTest {
 
     @Test
     public void testFindById() {
-        Product product1 = productService.createProduct(PRODUCT_1, PRICE_1);
-        productService.createProduct(PRODUCT_2, PRICE_2);
+        Product product1 = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
+        productService.createProduct(new Product(PRODUCT_2, PRICE_2));
 
         Product foundProduct = productService.findById(product1.getId());
 
@@ -68,8 +68,8 @@ public class ProductServiceTest {
 
     @Test
     public void testDeleteProduct() {
-        Product product1 = productService.createProduct(PRODUCT_1, PRICE_1);
-        Product product2 = productService.createProduct(PRODUCT_2, PRICE_2);
+        Product product1 = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
+        Product product2 = productService.createProduct(new Product(PRODUCT_2, PRICE_2));
 
         productService.deleteProduct(product2.getId());
 
@@ -81,9 +81,9 @@ public class ProductServiceTest {
 
     @Test
     public void testUpdateProduct() {
-        Product product1 = productService.createProduct(PRODUCT_1, PRICE_1);
+        Product product1 = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
 
-        Product product2 = productService.updateProduct(product1.getId(), PRODUCT_2, PRICE_2);
+        Product product2 = productService.updateProduct(product1.getId(), new Product(PRODUCT_2, PRICE_2));
 
         Product foundProduct = productService.findById(product1.getId());
 

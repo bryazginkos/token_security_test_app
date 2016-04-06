@@ -27,7 +27,7 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
-    @RequestMapping(value = "/token")
+    @RequestMapping(value = UrlList.TOKEN)
     public ResponseEntity<String> getToken(@RequestParam(value = "user") String userName, @RequestParam(value = "pass") String password) {
         User user = userService.findUser(userName, password);
         if (user != null) {

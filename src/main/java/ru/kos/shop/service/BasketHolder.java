@@ -28,6 +28,10 @@ public class BasketHolder {
         basket.getProductList().add(product);
     }
 
+    public void clear() {
+        basket = new Basket();
+    }
+
     public Basket getBasket() {
         return basket;
     }

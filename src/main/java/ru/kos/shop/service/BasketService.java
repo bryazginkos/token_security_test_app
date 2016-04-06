@@ -18,14 +18,8 @@ public class BasketService {
     @Autowired
     private BasketRepository basketRepository;
 
-    @Autowired
-    private BasketHolder basketHolder;
-
     @Transactional
-    public Basket saveBasket(String customerPhone, Date orderDate) {
-        Basket basket = basketHolder.getBasket();
-        basket.setCustomerPhone(customerPhone);
-        basket.setOrderDate(orderDate);
+    public Basket saveBasket(Basket basket) {
         basketRepository.save(basket);
         return basket;
     }

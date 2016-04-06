@@ -3,7 +3,7 @@ package ru.kos.shop.controller;
 /**
  * Created by Константин on 06.04.2016.
  */
-public class UrlList {
+public final class UrlList {
 
     /**
      * Версия API
@@ -16,12 +16,17 @@ public class UrlList {
     public static final String PREFIX = "/api/" + API_VERSION;
 
     /**
-     * POST - добавление продукта
+     * POST - добавление продукта в базу
      * PUT / {id} - обновление продукта
      * DELETE - удаление продукта
      * GET - получить список продуктов
      */
     public static final String PRODUCTS = "/products";
+
+    /**
+     * GET / {id} - положить продукт в корзину
+     */
+    public static final String TO_BASKET = "/basket";
 
     /**
      * POST - создать заказ
@@ -34,4 +39,7 @@ public class UrlList {
      * Получение токена по логину и пароля
      */
     public static final String TOKEN = "/token";
+
+    private UrlList() {
+    }
 }
