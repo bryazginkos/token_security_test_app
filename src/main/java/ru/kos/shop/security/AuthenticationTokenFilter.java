@@ -21,9 +21,6 @@ public class AuthenticationTokenFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain fc) throws IOException, ServletException {
-        SecurityContext context = SecurityContextHolder.getContext();
-        context.setAuthentication(null);
-
         String token = null;
         if (req instanceof HttpServletRequest) {
             token = ((HttpServletRequest) req).getHeader(X_ACCESS_TOKEN);

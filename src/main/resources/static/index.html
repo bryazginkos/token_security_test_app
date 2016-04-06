@@ -4,10 +4,59 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/test.js"></script>
+    <style>
+        .withMargin {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-<input type="button" value="Do it" onclick="base()">
+<div class="row">
+    <div class="panel panel-default col-lg-4">
+        <div class="panel-heading">Login</div>
+        <div class="panel-body">
+            <input type="text" class="form-control withMargin" placeholder="Login" id = "loginField"/>
+            <input type="password" class="form-control withMargin" placeholder="Password" id = "passField"/>
+            <a class="btn btn-success withMargin" onclick="getToken()">Get Token</a>
+
+            <br/>
+            <label for="tokenField">Token</label>
+            <input type="text" class="form-control" id="tokenField">
+        </div>
+    </div>
+
+    <div class="panel panel-default col-lg-4">
+        <div class="panel-heading">Products</div>
+        <div class="panel-body">
+            <a class="btn btn-success withMargin" onclick="showProducts()">Show products</a>
+            <div id = "productsDiv"></div>
+        </div>
+    </div>
+
+    <div class="panel panel-default col-lg-4">
+        <div class="panel-heading">Add Product</div>
+        <div class="panel-body">
+            <input type="text" class="form-control withMargin" placeholder="Name" id = "productField"/>
+            <input type="text" class="form-control withMargin" placeholder="Price" id = "priceField"/>
+            <a class="btn btn-success withMargin" onclick="addProduct()">Add product</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default col-lg-4">
+        <div class="panel-heading">Edit Product</div>
+        <div class="panel-body">
+            <input type="text" class="form-control withMargin" placeholder="Id" id = "editProductIdField"/>
+            <input type="text" class="form-control withMargin" placeholder="Name" id = "editProductField"/>
+            <input type="text" class="form-control withMargin" placeholder="Price" id = "editPriceField"/>
+            <a class="btn btn-success withMargin" onclick="editProduct()">Edit product</a>
+        </div>
+    </div>
+
+
+</div>
 
 </body>
 </html>

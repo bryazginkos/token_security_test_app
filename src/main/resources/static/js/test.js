@@ -1,9 +1,6 @@
 /**
  * Created by Константин on 06.04.2016.
  */
-
-var mytoken;
-
 function registerAdmin(userName, userPass, callback) {
     $.ajax({
         url: "/api/1.0/register",
@@ -17,42 +14,79 @@ function registerAdmin(userName, userPass, callback) {
     });
 }
 
-function getToken(userName, userPass, callback) {
+function getToken() {
     $.ajax({
         url: "/api/1.0/token",
         type: 'POST',
         data: JSON.stringify({
-            login : userName,
-            password : userPass
+            login : $('#loginField').val(),
+            password : $('#passField').val()
         }),
         contentType: "application/json",
         success: function(token) {
-            mytoken = token;
-            callback();
+            $('#tokenField').val(token);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $('#tokenField').val("");
+            alert(errorThrown);
         }
     });
 }
 
-function addProduct(name, price, callback) {
+function showProducts() {
+    $.ajax({
+        url: "/api/1.0/products/",
+        type: 'GET',
+        contentType: "application/json",
+        success: function(data) {
+            $('#productsDiv').html(JSON.stringify(data));
+        }
+    });
+}
+
+function addProduct() {
     $.ajax({
         url: "/api/1.0/products",
         type: 'POST',
         headers: {
-            "X_ACCESS_TOKEN" : mytoken
+            "X_ACCESS_TOKEN" : $('#tokenField').val()
         },
         data: JSON.stringify({
-            name : name,
-            price : price
+            name : $('#productField').val(),
+            price : $('#priceField').val()
         }),
         contentType: "application/json",
-        success: callback
+        success: function(data) {
+            alert("ok " + JSON.stringify(data));
+            $('#productField').val("");
+            $('#priceField').val("");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
     });
 }
 
-function base() {
-    getToken("kostya", "123", function() {
-        addProduct("PC", 12.34, function() {
-            alert('hi');
-        })
+function editProduct() {
+    $.ajax({
+        url: "/api/1.0/products/" + $('#editProductIdField').val() + "/",
+        type: 'PUT',
+        headers: {
+            "X_ACCESS_TOKEN" : $('#tokenField').val()
+        },
+        data: JSON.stringify({
+            name : $('#editProductField').val(),
+            price : $('#editPriceField').val()
+        }),
+        contentType: "application/json",
+        success: function(data) {
+            alert("ok " + JSON.stringify(data));
+            $('#editProductField').val("");
+            $('#editPriceField').val("");
+            $('#editProductIdField').val("");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
     });
 }
