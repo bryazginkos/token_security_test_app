@@ -2,6 +2,7 @@ package ru.kos.shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kos.shop.domain.User;
 import ru.kos.shop.reporitory.UserRepository;
 import ru.kos.shop.security.Roles;
@@ -25,6 +26,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     public User registerUser(String userName, String password, List<Roles> rolesList) {
         User user = new User(userName, passwordEncrypter.encrypt(password), rolesList);
         userRepository.save(user);

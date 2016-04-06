@@ -2,6 +2,7 @@ package ru.kos.shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kos.shop.domain.Basket;
 import ru.kos.shop.reporitory.BasketRepository;
 
@@ -20,6 +21,7 @@ public class BasketService {
     @Autowired
     private BasketHolder basketHolder;
 
+    @Transactional
     public Basket saveBasket(String customerPhone, Date orderDate) {
         Basket basket = basketHolder.getBasket();
         basket.setCustomerPhone(customerPhone);
@@ -27,7 +29,6 @@ public class BasketService {
         basketRepository.save(basket);
         return basket;
     }
-
 
     public List<Basket> getOrderBaskets(Date begin, Date end) {
         return basketRepository.findByDatesBetween(begin, end);
