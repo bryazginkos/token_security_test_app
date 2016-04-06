@@ -3,12 +3,13 @@ package ru.kos.shop.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Константин on 04.04.2016.
  */
 @Entity
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue
@@ -27,7 +28,7 @@ public class Product {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -35,7 +36,7 @@ public class Product {
         return name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 }
