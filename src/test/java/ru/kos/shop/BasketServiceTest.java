@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
         classes = { TestConfig.class} )
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback=true)
 @Transactional
-public class BasketServiceTest extends AbstractSessionTest {
+public class BasketServiceTest {
 
     public static final String PRODUCT_1 = "product1";
     public static final String PRODUCT_2 = "product2";
