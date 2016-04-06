@@ -17,10 +17,13 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"ru.kos.shop"})
 public class TestConfig {
 
+    private static final String TEST_DB = "test_db";
+
     @Bean
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder
+                .setName(TEST_DB)
                 .setType(EmbeddedDatabaseType.HSQL)
                 .build();
     }
