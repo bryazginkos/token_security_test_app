@@ -2,10 +2,7 @@ package ru.kos.shop.domain;
 
 import ru.kos.shop.security.Roles;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class User implements Serializable {
 
     private String passHash;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Roles> roles;
 
     public User() {

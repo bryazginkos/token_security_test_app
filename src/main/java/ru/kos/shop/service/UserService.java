@@ -22,10 +22,6 @@ public class UserService {
     @Autowired
     private PasswordEncrypter passwordEncrypter;
 
-    public Iterable<User> findAll() {
-        return userRepository.findAll();
-    }
-
     @Transactional
     public User registerUser(String userName, String password, List<Roles> rolesList) {
         User user = new User(userName, passwordEncrypter.encrypt(password), rolesList);
