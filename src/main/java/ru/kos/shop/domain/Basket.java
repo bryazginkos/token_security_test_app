@@ -2,7 +2,6 @@ package ru.kos.shop.domain;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by brjazgin on 06.04.2016.
@@ -18,8 +17,7 @@ public class Basket {
 
     private Date orderDate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private List<Product> productList;
+    private String products;
 
     public Basket() {
     }
@@ -36,12 +34,12 @@ public class Basket {
         this.orderDate = orderDate;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public String getProducts() {
+        return products;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public void setProducts(String products) {
+        this.products = products;
     }
 
     public String getCustomerPhone() {

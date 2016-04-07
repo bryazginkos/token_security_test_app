@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kos.shop.domain.Product;
 import ru.kos.shop.reporitory.ProductRepository;
 
+import java.util.List;
+
 /**
  * Created by brjazgin on 06.04.2016.
  */
@@ -32,6 +34,11 @@ public class ProductService {
     public Product updateProduct(Integer id, Product product) {
         product.setId(id);
         return productRepository.save(product);
+    }
+
+    @Transactional
+    public List<Product> findProductsByIdList(List<Integer> ids) {
+        return productRepository.findByIdIn(ids);
     }
 
     @Transactional

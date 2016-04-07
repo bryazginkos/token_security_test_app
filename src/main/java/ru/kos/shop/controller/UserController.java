@@ -47,9 +47,12 @@ public class UserController {
 
     @RequestMapping(value = UrlList.ORDERS, method = RequestMethod.POST)
     public Basket saveBasket(@RequestBody String customerPhone) {
-        Basket basket = basketHolder.getBasket();
+        List<Integer> productIds = basketHolder.getProductIds();
+        List<Product> actualProducts = productService.findProductsByIdList(productIds);
+        Basket basket = new Basket();
         basket.setCustomerPhone(customerPhone);
         basket.setOrderDate(new Date());
+        basket.setProducts(actualProducts.toString());
         basketHolder.clear();
         return basketService.saveBasket(basket);
     }

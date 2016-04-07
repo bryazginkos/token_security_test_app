@@ -55,7 +55,7 @@ public class BasketServiceTest {
         Basket basket = new Basket();
         basket.setCustomerPhone(CUSTOMER_PHONE);
         basket.setOrderDate(convert(basketDateTime));
-        basket.setProductList(products);
+        basket.setProducts(products.toString());
 
         basketService.saveBasket(basket);
 
@@ -65,7 +65,7 @@ public class BasketServiceTest {
         Basket foundBasket = orderBaskets.get(0);
         assertEquals(CUSTOMER_PHONE, foundBasket.getCustomerPhone());
         assertEquals(convert(basketDateTime), foundBasket.getOrderDate());
-        assertEquals(products, foundBasket.getProductList());
+        assertEquals(products.toString(), foundBasket.getProducts());
     }
 
     private List<Product> addProductsToDatabase() {

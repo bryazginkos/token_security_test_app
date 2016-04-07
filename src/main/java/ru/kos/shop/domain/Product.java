@@ -1,5 +1,7 @@
 package ru.kos.shop.domain;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -45,5 +47,15 @@ public class Product implements Serializable {
 
     public Double getPrice() {
         return price;
+    }
+
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("id", id)
+                .add("name", name)
+                .add("price", price)
+                .toString();
     }
 }
