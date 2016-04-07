@@ -18,7 +18,7 @@ public class Basket {
 
     private Date orderDate;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Product> productList;
 
     public Basket() {
