@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .addFilterBefore(new AuthenticationTokenFilter(), BasicAuthenticationFilter.class)
-                .antMatcher(UrlList.PREFIX + "/*")
+                .antMatcher(UrlList.PREFIX + "/**")
                 .authenticationProvider(tokenAuthenticationProvider)
                 .authorizeRequests()
                 .anyRequest().authenticated()
