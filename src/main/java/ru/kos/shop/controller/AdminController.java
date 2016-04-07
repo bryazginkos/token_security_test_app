@@ -1,6 +1,7 @@
 package ru.kos.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.kos.shop.domain.Basket;
@@ -43,8 +44,8 @@ public class AdminController {
 
     @Secured(Roles.ROLE_ADMIN)
     @RequestMapping(value = UrlList.ORDERS, method = RequestMethod.GET)
-    public List<Basket> getOrders(@RequestParam(value = "begin") Date begin,
-                                  @RequestParam(value = "end") Date end) {
+    public List<Basket> getOrders(@RequestParam(value = "begin") @DateTimeFormat(pattern="dd-MM-yyyy") Date begin,
+                                  @RequestParam(value = "end") @DateTimeFormat(pattern="dd-MM-yyyy")  Date end) {
         return basketService.getOrderBaskets(begin, end);
     }
 

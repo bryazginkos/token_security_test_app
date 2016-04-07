@@ -140,3 +140,21 @@ function saveBasket() {
         }
     });
 }
+
+function getOrders() {
+    $.ajax({
+        url: "/api/1.0/orders?begin=" + $('#fromDateField').val() + "&end=" + $('#toDateField').val(),
+        type: 'GET',
+        contentType: "application/json",
+        headers: {
+            "X_ACCESS_TOKEN" : $('#tokenField').val()
+        },
+        success: function(data) {
+            $('#ordersDiv').html(JSON.stringify(data));
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $('#ordersDiv').val("");
+            alert(errorThrown);
+        }
+    });
+}
