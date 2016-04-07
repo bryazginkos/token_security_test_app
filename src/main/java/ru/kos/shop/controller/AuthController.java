@@ -48,9 +48,10 @@ public class AuthController {
     /**
      * Метод не из ТЗ. (Для тестирования) Регистрирует администратора-пользователя
      * @param authParams логин и пароль нового пользователя
+     * @return Пользователь
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register(@RequestBody AuthParams authParams) {
-        userService.registerUser(authParams.getLogin(), authParams.getPassword(), Arrays.asList(Roles.ROLE_ADMIN));
+    public User register(@RequestBody AuthParams authParams) {
+        return userService.registerUser(authParams.getLogin(), authParams.getPassword(), Arrays.asList(Roles.ROLE_ADMIN));
     }
 }

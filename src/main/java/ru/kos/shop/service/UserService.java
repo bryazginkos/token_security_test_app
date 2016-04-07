@@ -24,16 +24,22 @@ public class UserService {
     private PasswordEncrypter passwordEncrypter;
 
     /**
-     * Регистрация пользователя
+     * Регистрация пользователя. Если пользователь существует такой, то выкидывает expection
      * @param userName имя
      * @param password пароль
      * @param rolesList список ролей {@link ru.kos.shop.security.Roles}
      * @return Созданный пользователь.
+     * @throws IllegalArgumentException если пользователь с таким логином существует
      */
     @Transactional
     public User registerUser(@NotNull String userName, @NotNull String password, @NotNull List<String> rolesList) {
+        User existUser = userRepository.findByUserName(userName);
+        if (existUser != null) {
+            throw new IllegalArgumentException("User " + userName + " exists");
+        }
         User user = new User(userName, passwordEncrypter.encrypt(password), rolesList);
         userRepository.save(user);
+
         return user;
     }
 

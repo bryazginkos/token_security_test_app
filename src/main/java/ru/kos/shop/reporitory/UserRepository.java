@@ -21,4 +21,12 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Nullable
     User findByUserNameAndPassHash(@NotNull String userName, @NotNull String passHash);
 
+    /**
+     * Поиск пользователя по логинул
+     * @param userName логин
+     * @return Пользователь. Null если не найден.
+     */
+    @Nullable
+    User findByUserName(@NotNull String userName);
+
 }
