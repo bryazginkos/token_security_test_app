@@ -18,10 +18,14 @@ public class Basket {
 
     private Date orderDate;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Product> productList;
 
     public Basket() {
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public void setCustomerPhone(String customerPhone) {
