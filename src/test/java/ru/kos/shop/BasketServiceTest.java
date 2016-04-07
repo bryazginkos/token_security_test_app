@@ -1,6 +1,5 @@
 package ru.kos.shop;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,10 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import ru.kos.shop.domain.Basket;
 import ru.kos.shop.domain.Product;
-import ru.kos.shop.service.BasketHolder;
 import ru.kos.shop.service.BasketService;
 import ru.kos.shop.service.ProductService;
 
 import javax.transaction.Transactional;
-import java.time.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -46,22 +43,29 @@ public class BasketServiceTest {
 
 
     @Test
-    @Ignore
     public void testSaveBasket() {
-        LocalDateTime basketDateTime = LocalDateTime.of(2010, Month.FEBRUARY, 6, 0, 0);
-        LocalDateTime beforeBasketDateTime = LocalDateTime.of(2008, Month.FEBRUARY, 6, 0, 0);
-        LocalDateTime afterBasketDateTime = LocalDateTime.of(2012, Month.FEBRUARY, 6, 0, 0);
-
+        //добавляем продукты в базу
         List<Product> products = addProductsToDatabase();
 
-        basketService.saveBasket(CUSTOMER_PHONE);
+        //добавляем продукты в корзину
+        basketService.putInBasket(products.get(0).getId());
+        basketService.putInBasket(products.get(1).getId());
 
-        List<Basket> orderBaskets = basketService.getOrderBaskets(convert(beforeBasketDateTime), convert(afterBasketDateTime));
+        //сохраняем корзину
+        Basket savedBasket = basketService.saveBasket(CUSTOMER_PHONE);
+
+        Date orderDate = savedBasket.getOrderDate();
+        Date future = new Date(orderDate.getTime() + 1000);
+        Date past = new Date(orderDate.getTime() - 1000);
+
+        //поиск корзины по дате
+        List<Basket> orderBaskets = basketService.getOrderBaskets(past, future);
         assertTrue(orderBaskets.size() == 1);
 
         Basket foundBasket = orderBaskets.get(0);
+
         assertEquals(CUSTOMER_PHONE, foundBasket.getCustomerPhone());
-        assertEquals(convert(basketDateTime), foundBasket.getOrderDate());
+        assertEquals(orderDate, foundBasket.getOrderDate());
         assertEquals(products.toString(), foundBasket.getProducts());
     }
 
@@ -69,10 +73,5 @@ public class BasketServiceTest {
         Product product1 = productService.createProduct(new Product(PRODUCT_1, PRICE_1));
         Product product2 = productService.createProduct(new Product(PRODUCT_2, PRICE_2));
         return Arrays.asList(product1, product2);
-    }
-
-    private Date convert(LocalDateTime localDateTime) {
-        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
-        return Date.from(instant);
     }
 }
