@@ -10,6 +10,7 @@ import ru.kos.shop.util.PasswordEncrypter;
 import java.util.List;
 
 /**
+ * Сервис для работы с пользователями <br/>
  * Created by Константин on 05.04.2016.
  */
 @Service
@@ -21,6 +22,13 @@ public class UserService {
     @Autowired
     private PasswordEncrypter passwordEncrypter;
 
+    /**
+     * Регистрация пользователя
+     * @param userName имя
+     * @param password пароль
+     * @param rolesList список ролей {@link ru.kos.shop.security.Roles}
+     * @return Созданный пользователь.
+     */
     @Transactional
     public User registerUser(String userName, String password, List<String> rolesList) {
         User user = new User(userName, passwordEncrypter.encrypt(password), rolesList);
@@ -28,6 +36,12 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Поиск пользователя
+     * @param userName имя
+     * @param pass пароль
+     * @return Пользователь. Null если не найден.
+     */
     public User findUser(String userName, String pass) {
         return userRepository.findByUserNameAndPassHash(userName, passwordEncrypter.encrypt(pass));
     }

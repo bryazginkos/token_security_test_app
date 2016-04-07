@@ -10,6 +10,12 @@ import ru.kos.shop.domain.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 
+    /**
+     * Поиск пользователя по логину и хэшу пароля
+     * @param userName логин
+     * @param passHash хэш пароля
+     * @return Пользователь. Null если не найден.
+     */
     User findByUserNameAndPassHash(String userName, String passHash);
 
 }

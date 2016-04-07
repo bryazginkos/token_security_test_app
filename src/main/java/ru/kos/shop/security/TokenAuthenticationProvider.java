@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * AuthenticationProvider который расчитан на работу с {@link TokenAuthentication}.<br/>
+ * Не трогает входную Authentication если токен не признан валидным. <br/>
+ * В ином случае возвращается {@link PreAuthenticatedAuthenticationToken} c заполненным {@link User} (principal),
+ * токеном (credentials) и authorities из User  <br/>
  * Created by Константин on 05.04.2016.
  */
 @Component

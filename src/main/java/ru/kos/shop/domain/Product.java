@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
+ * Продукт <br/>
  * Created by Константин on 04.04.2016.
  */
 @Entity
@@ -18,12 +19,6 @@ public class Product implements Serializable {
     private Integer id;
     private String name;
     private Double price;
-
-    public Product(Integer id, String name, Double price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
 
     public Product(String name, Double price) {
         this.name = name;

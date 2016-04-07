@@ -12,8 +12,18 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
+    /**
+     * Поиск продукта по id
+     * @param id
+     * @return Продукт, null если не найдет
+     */
     Product findById(Integer id);
 
+    /**
+     * Поиск продуктов по списку id
+     * @param IdList список id
+     * @return List продуктов. Пустой если ничего не найдено.
+     */
     List<Product> findByIdIn(List<Integer> IdList);
 
 }

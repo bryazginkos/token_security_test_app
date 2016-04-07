@@ -32,6 +32,11 @@ public class TokenService {
     private long tokenLifeTimeMs;
 
 
+    /**
+     * Создать токен для пользователя
+     * @param userId ID пользователя
+     * @return токен
+     */
     public String createJWT(Integer userId) {
 
         //The JWT signature algorithm we will be using to sign the token
@@ -63,6 +68,12 @@ public class TokenService {
         return builder.compact();
     }
 
+    /**
+     * Расшифровать токен
+     * @param jwt токен
+     * @return Расшифровка токена
+     * @throws Exception если токен не валиден (исключая случай, когда токен устарел)
+     */
     public TokenInfo getTokenInfo(String jwt) throws Exception {
         //This line will throw an exception if it is not a signed JWS (as expected)
         Claims claims = Jwts.parser()

@@ -2,19 +2,21 @@ package ru.kos.shop.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 /**
+ * {@link Authentication} имплементация для хранения токена в Credentials <br/>
  * Created by Константин on 05.04.2016.
  */
 public class TokenAuthentication implements Authentication {
 
     private String token;
 
+    /**
+     * {@link Authentication} имплементация
+     * @param token - токен
+     */
     public TokenAuthentication(String token) {
         this.token = token;
     }

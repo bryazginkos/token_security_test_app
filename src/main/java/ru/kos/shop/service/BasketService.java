@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Сервис для работы с корзинами <br/>
  * Created by brjazgin on 06.04.2016.
  */
 @Service
@@ -25,6 +26,15 @@ public class BasketService {
     @Autowired
     private ProductService productService;
 
+    /**
+     * Сохранить текущую корзину из {@link BasketHolder}  <br/>
+     * В качестве даты заказа проставляется текущая.
+     * Перед сохранениям все существующие в корзине продукты проверяются на существование. Несуществующие игнорируются.
+     * За время нахождения продукта в корзине продукт мог быть модифицирован! <br/>
+     * После оформления текущая корзина очищается
+     * @param customerPhone телефон клиента.
+     * @return Сохраненную корзину
+     */
     @Transactional
     public Basket saveBasket(String customerPhone) {
         List<Integer> productIds = basketHolder.getProductIds();
@@ -38,11 +48,22 @@ public class BasketService {
         return basket;
     }
 
+    /**
+     * Получить список корзин, проданных за промежуток
+     * @param begin начало
+     * @param end конец
+     * @return Список корзин
+     */
     @Transactional
     public List<Basket> getOrderBaskets(Date begin, Date end) {
         return basketRepository.findByDatesBetween(begin, end);
     }
 
+    /**
+     * Положить в текущую корзину продукт
+     * @param productId id продукта
+     * @return Продукт, если он существуют в базе, null иначе
+     */
     public Product putInBasket(Integer productId) {
         Product product = productService.findById(productId);
         if (product != null) {

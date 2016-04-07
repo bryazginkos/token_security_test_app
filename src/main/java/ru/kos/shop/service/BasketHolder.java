@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Хранит id продуктов, помещенных в корзину <br/>
  * Created by brjazgin on 06.04.2016.
  */
 @Component
@@ -21,16 +22,28 @@ public class BasketHolder {
         productIds = new ArrayList<>();
     }
 
+    /**
+     * Добавить продукт. Продукт не проверяется на существование в базе. Просто добавляется id.
+     * @param product продукт для добавления
+     */
     public void addProduct(Product product) {
         if (product.getId() != null) {
             productIds.add(product.getId());
         }
     }
 
+    /**
+     * Очистить корзину
+     */
     public void clear() {
         productIds = new ArrayList<>();
     }
 
+
+    /**
+     * Вернуть id продуктов
+     * @return List of id продуктов
+     */
     public List<Integer> getProductIds() {
         return productIds;
     }

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
+ * Фильтр ищет токен в заголовке X_ACCESS_TOKEN и прописывает в SecurityContext Authentication
+ * типа {@link TokenAuthentication } с токеном в качестве credentials <br/>
  * Created by Константин on 05.04.2016.
  */
 public class AuthenticationTokenFilter implements Filter {

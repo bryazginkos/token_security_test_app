@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Пользователь <br/>
  * Created by Константин on 05.04.2016.
  */
 @Entity

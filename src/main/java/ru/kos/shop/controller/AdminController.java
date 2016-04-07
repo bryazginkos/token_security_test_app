@@ -15,6 +15,7 @@ import java.util.List;
 
 
 /**
+ * Контроллер для запросов администратора <br/>
  * Created by brjazgin on 06.04.2016.
  */
 @RestController

@@ -29,6 +29,11 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
+    /**
+     * Получение токена
+     * @param authParams логин и пароль пользователя
+     * @return
+     */
     @RequestMapping(value = UrlList.TOKEN, method = RequestMethod.POST)
     public ResponseEntity<String> getToken(@RequestBody AuthParams authParams) {
         User user = userService.findUser(authParams.getLogin(), authParams.getPassword());
@@ -40,6 +45,10 @@ public class AuthController {
         }
     }
 
+    /**
+     * Метод не из ТЗ. (Для тестирования) Регистрирует администратора-пользователя
+     * @param authParams логин и пароль нового пользователя
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody AuthParams authParams) {
         userService.registerUser(authParams.getLogin(), authParams.getPassword(), Arrays.asList(Roles.ROLE_ADMIN));
