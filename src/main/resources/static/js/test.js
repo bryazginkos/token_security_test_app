@@ -1,16 +1,18 @@
 /**
  * Created by Константин on 06.04.2016.
  */
-function registerAdmin(userName, userPass, callback) {
+function registerAdmin() {
     $.ajax({
         url: "/api/1.0/register",
         type: 'POST',
         data: JSON.stringify({
-            login : userName,
-            password : userPass
+            login : "kostya",
+            password : "123"
         }),
         contentType: "application/json",
-        success: callback
+        success: function(data) {
+            alert(JSON.stringify(data))
+        }
     });
 }
 
@@ -84,6 +86,54 @@ function editProduct() {
             $('#editProductField').val("");
             $('#editPriceField').val("");
             $('#editProductIdField').val("");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+}
+
+function deleteProduct() {
+    $.ajax({
+        url: "/api/1.0/products/" + $('#deleteProductIdField').val() + "/",
+        type: 'DELETE',
+        headers: {
+            "X_ACCESS_TOKEN" : $('#tokenField').val()
+        },
+        contentType: "application/json",
+        success: function(data) {
+            alert("deleted");
+            $('#deleteProductIdField').val("");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+}
+
+function addProductToBasket() {
+    $.ajax({
+        url: "/api/1.0/basket/" + $('#addBasketProductIdField').val() + "/",
+        type: 'POST',
+        contentType: "application/json",
+        success: function(data) {
+            alert('added to basket ' + JSON.stringify(data));
+            $('#addBasketProductIdField').val("");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+}
+
+function saveBasket() {
+    $.ajax({
+        url: "/api/1.0/orders/",
+        type: 'POST',
+        contentType: "application/json",
+        data: "+7 999 123 12 12",
+        success: function(data) {
+            alert('basket is saved ' + JSON.stringify(data));
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(errorThrown);

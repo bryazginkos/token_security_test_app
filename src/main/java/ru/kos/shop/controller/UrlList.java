@@ -24,7 +24,7 @@ public final class UrlList {
     public static final String PRODUCTS = "/products";
 
     /**
-     * GET / {id} - положить продукт в корзину
+     * POST / {id} - положить продукт в корзину
      */
     public static final String TO_BASKET = "/basket";
 

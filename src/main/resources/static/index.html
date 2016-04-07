@@ -25,6 +25,7 @@
             <br/>
             <label for="tokenField">Token</label>
             <input type="text" class="form-control" id="tokenField">
+            <a class="btn btn-success withMargin" onclick="registerAdmin()">kostya 123</a>
         </div>
     </div>
 
@@ -52,6 +53,23 @@
             <input type="text" class="form-control withMargin" placeholder="Name" id = "editProductField"/>
             <input type="text" class="form-control withMargin" placeholder="Price" id = "editPriceField"/>
             <a class="btn btn-success withMargin" onclick="editProduct()">Edit product</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default col-lg-4">
+        <div class="panel-heading">Delete Product</div>
+        <div class="panel-body">
+            <input type="text" class="form-control withMargin" placeholder="Id" id = "deleteProductIdField"/>
+            <a class="btn btn-success withMargin" onclick="deleteProduct()">Delete product</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default col-lg-4">
+        <div class="panel-heading">Add Product to basket</div>
+        <div class="panel-body">
+            <input type="text" class="form-control withMargin" placeholder="Id" id = "addBasketProductIdField"/>
+            <a class="btn btn-success withMargin" onclick="addProductToBasket()">Add product to basket</a>
+            <a class="btn btn-success withMargin" onclick="saveBasket()">Save basket</a>
         </div>
     </div>
 

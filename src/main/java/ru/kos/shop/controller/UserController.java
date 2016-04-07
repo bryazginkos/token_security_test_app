@@ -36,7 +36,7 @@ public class UserController {
         return Lists.newArrayList(productService.findAll());
     }
 
-    @RequestMapping(value = UrlList.TO_BASKET + "/{" + PRODUCT_ID_PATH_VARIABLE + "}", method  = RequestMethod.GET)
+    @RequestMapping(value = UrlList.TO_BASKET + "/{" + PRODUCT_ID_PATH_VARIABLE + "}", method  = RequestMethod.POST)
     public Product addProduct(@PathVariable(value= PRODUCT_ID_PATH_VARIABLE) Integer productId) {
         Product product = productService.findById(productId);
         if (product != null) {
