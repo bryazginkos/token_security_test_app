@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +38,8 @@ public class TokenService {
      * @param userId ID пользователя
      * @return токен
      */
-    public String createJWT(Integer userId) {
+    @NotNull
+    public String createJWT(@NotNull Integer userId) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -74,7 +76,8 @@ public class TokenService {
      * @return Расшифровка токена
      * @throws Exception если токен не валиден (исключая случай, когда токен устарел)
      */
-    public TokenInfo getTokenInfo(String jwt) throws Exception {
+    @NotNull
+    public TokenInfo getTokenInfo(@NotNull String jwt) throws Exception {
         //This line will throw an exception if it is not a signed JWS (as expected)
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(apiSecret))

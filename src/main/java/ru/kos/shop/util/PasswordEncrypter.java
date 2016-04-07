@@ -1,5 +1,6 @@
 package ru.kos.shop.util;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,8 @@ public final class PasswordEncrypter {
      * @param pass пароль
      * @return Шифрованный пароль
      */
-    public String encrypt(String pass){
+    @NotNull
+    public String encrypt(@NotNull String pass){
         //утверждается, что это потокобезопасный метод
         return BCrypt.hashpw(pass, salt);
     }

@@ -54,7 +54,6 @@ public class BasketService {
      * @param end конец
      * @return Список корзин
      */
-    @Transactional
     public List<Basket> getOrderBaskets(Date begin, Date end) {
         return basketRepository.findByDatesBetween(begin, end);
     }

@@ -1,5 +1,6 @@
 package ru.kos.shop.service;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class BasketHolder {
      * Добавить продукт. Продукт не проверяется на существование в базе. Просто добавляется id.
      * @param product продукт для добавления
      */
-    public void addProduct(Product product) {
+    public void addProduct(@NotNull Product product) {
         if (product.getId() != null) {
             productIds.add(product.getId());
         }
@@ -44,6 +45,7 @@ public class BasketHolder {
      * Вернуть id продуктов
      * @return List of id продуктов
      */
+    @NotNull
     public List<Integer> getProductIds() {
         return productIds;
     }

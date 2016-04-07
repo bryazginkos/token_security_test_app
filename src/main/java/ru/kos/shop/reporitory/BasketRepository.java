@@ -1,5 +1,6 @@
 package ru.kos.shop.reporitory;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,6 @@ public interface BasketRepository extends CrudRepository<Basket, Integer> {
      */
     @Query("select b from Basket b " +
             "where b.orderDate between ?1 and ?2")
-    List<Basket> findByDatesBetween(Date begin, Date end);
+    @NotNull
+    List<Basket> findByDatesBetween(@NotNull Date begin, @NotNull Date end);
 }

@@ -1,5 +1,7 @@
 package ru.kos.shop.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class ProductService {
      * Получить все продукты
      * @return Все продукты.
      */
+    @NotNull
     public Iterable<Product> findAll() {
         return productRepository.findAll();
     }
@@ -31,7 +34,8 @@ public class ProductService {
      * @param id
      * @return Продукт с данным id. Null если не найден.
      */
-    public Product findById(Integer id) {
+    @Nullable
+    public Product findById(@NotNull Integer id) {
         return productRepository.findById(id);
     }
 
@@ -41,7 +45,8 @@ public class ProductService {
      * @return Созданный продукт с заполненным id
      */
     @Transactional
-    public Product createProduct(Product product) {
+    @NotNull
+    public Product createProduct(@NotNull Product product) {
         return productRepository.save(product);
     }
 
@@ -52,7 +57,8 @@ public class ProductService {
      * @return Обновленный продукт
      */
     @Transactional
-    public Product updateProduct(Integer id, Product product) {
+    @NotNull
+    public Product updateProduct(@NotNull Integer id, @NotNull Product product) {
         product.setId(id);
         return productRepository.save(product);
     }
@@ -62,8 +68,8 @@ public class ProductService {
      * @param ids список заданных id
      * @return Список продуктов. Пустой список если ничего не найдено
      */
-    @Transactional
-    public List<Product> findProductsByIdList(List<Integer> ids) {
+    @NotNull
+    public List<Product> findProductsByIdList(@NotNull List<Integer> ids) {
         return productRepository.findByIdIn(ids);
     }
 
@@ -72,7 +78,7 @@ public class ProductService {
      * @param id id продукта для удаления
      */
     @Transactional
-    public void deleteProduct(Integer id) {
+    public void deleteProduct(@NotNull Integer id) {
         productRepository.delete(id);
     }
 

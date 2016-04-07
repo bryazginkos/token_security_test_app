@@ -1,5 +1,7 @@
 package ru.kos.shop.reporitory;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.kos.shop.domain.User;
@@ -16,6 +18,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
      * @param passHash хэш пароля
      * @return Пользователь. Null если не найден.
      */
-    User findByUserNameAndPassHash(String userName, String passHash);
+    @Nullable
+    User findByUserNameAndPassHash(@NotNull String userName, @NotNull String passHash);
 
 }

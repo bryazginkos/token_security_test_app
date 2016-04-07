@@ -1,5 +1,6 @@
 package ru.kos.shop.security;
 
+import org.jetbrains.annotations.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -17,7 +18,7 @@ public class TokenAuthentication implements Authentication {
      * {@link Authentication} имплементация
      * @param token - токен
      */
-    public TokenAuthentication(String token) {
+    public TokenAuthentication(@Nullable String token) {
         this.token = token;
     }
 

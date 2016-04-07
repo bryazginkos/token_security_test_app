@@ -1,5 +1,6 @@
 package ru.kos.shop.service;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ public class UserService {
      * @return Созданный пользователь.
      */
     @Transactional
-    public User registerUser(String userName, String password, List<String> rolesList) {
+    public User registerUser(@NotNull String userName, @NotNull String password, @NotNull List<String> rolesList) {
         User user = new User(userName, passwordEncrypter.encrypt(password), rolesList);
         userRepository.save(user);
         return user;
@@ -42,7 +43,7 @@ public class UserService {
      * @param pass пароль
      * @return Пользователь. Null если не найден.
      */
-    public User findUser(String userName, String pass) {
+    public User findUser(@NotNull String userName, @NotNull String pass) {
         return userRepository.findByUserNameAndPassHash(userName, passwordEncrypter.encrypt(pass));
     }
 }
