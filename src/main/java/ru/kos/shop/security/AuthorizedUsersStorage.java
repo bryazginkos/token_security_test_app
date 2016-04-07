@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AuthorizedUsersStorage {
 
     //todo reload after restart app
+    //todo clean
     private Map<Integer, User> authorizedUsers = new ConcurrentHashMap<>();
 
     public User put(Integer key, User user) {
