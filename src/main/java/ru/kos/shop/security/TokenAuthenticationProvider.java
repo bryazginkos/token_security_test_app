@@ -9,7 +9,8 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.stereotype.Component;
 import ru.kos.shop.domain.User;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Константин on 05.04.2016.
@@ -37,8 +38,9 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
                 return auth;
             }
             User user = authorizedUsersStorage.get(tokenInfo.getUserId());
-            if (user != null) {
-                Authentication filled = new PreAuthenticatedAuthenticationToken(user, token, Arrays.asList(new SimpleGrantedAuthority(Roles.ROLE_ADMIN)));
+            if (user != null && user.getRoles() != null) {
+                List<SimpleGrantedAuthority> authorities = user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+                Authentication filled = new PreAuthenticatedAuthenticationToken(user, token, authorities);
                 filled.setAuthenticated(true);
                 return filled;
             } else {
